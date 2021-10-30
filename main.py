@@ -32,10 +32,14 @@ user_list = []
 @client.on(events.NewMessage)
 async def my_event_handler(event):
     global status_counter
-    if list(str(event.chat_id))[0] != '-' and str(event.from_id.user_id).split()[0] != '477643858':                  #Проверка что сообщение пришло от ползователя именно мне в чат
-        if status_counter != 0:
-            await event.reply(answer_dict[status_counter])
+    global user_list
     
+    if list(str(event.chat_id))[0] != '-' and str(event.from_id.user_id).split()[0] != '477643858':                  #Проверка что сообщение пришло от ползователя именно мне в чат
+        if status_counter != 0 and str(event.from_id.user_id).split()[0] not in user_list:
+            await event.reply(answer_dict[status_counter])
+            user_list.append(str(event.from_id.user_id).split()[0])
+        elif status_counter == 0:
+            user_list = []
     try:
         if str(event.message.peer_id.channel_id).split()[0] == '1406135438':
             if event.message.message in command_dict:
