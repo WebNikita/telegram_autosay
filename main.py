@@ -44,6 +44,14 @@ async def my_event_handler(event):
         if str(event.message.peer_id.channel_id).split()[0] == '1406135438':
             if event.message.message in command_dict:
                 status_counter = command_dict[event.message.message]
+            elif event.message.message == "/help":
+                await event.reply('''/start
+/stop
+/start_car
+/start_work
+/start_sleep
+/start_learning
+''')
     except:
         pass
 
